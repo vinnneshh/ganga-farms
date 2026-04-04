@@ -486,7 +486,7 @@ export default function App() {
             <h2 className="text-accent font-bold tracking-widest uppercase text-sm mb-4">Guest Reviews</h2>
             <h3 className="text-4xl font-serif text-primary font-bold">What Our Visitors Say</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {TESTIMONIALS.map((t, i) => (
               <motion.div
                 key={i}
@@ -509,6 +509,20 @@ export default function App() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          <div className="text-center">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="https://www.google.com/travel/search?q=ganga%20farms&g2lb=4965990%2C72471280%2C72560029%2C72573224%2C72647020%2C72686036%2C72803964%2C72882230%2C72958624%2C73059275%2C73064764&hl=en-IN&gl=in&ssta=1&ts=CAEaKwopEicyJTB4M2JjYjg2ODgzZmE3M2U5OToweDcwNTUxZGQ2YWQzZGJhMTU&qs=CAEyE0Nnb0lsZlQyNmVxNng2cHdFQUU4Ag&ap=ugEHcmV2aWV3cw&ictx=111&ved=0CAAQ5JsGahcKEwiQ9_LP5tOTAxUAAAAAHQAAAAAQCw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white border-2 border-primary text-primary px-8 py-4 rounded-full font-bold hover:bg-primary hover:text-white transition-all shadow-md group"
+            >
+              View More Reviews
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </motion.a>
           </div>
         </div>
       </section>
