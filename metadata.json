@@ -1,0 +1,7 @@
+{
+  "name": "Ganga Farms",
+  "description": "Premium wedding venue and farmhouse stay in Medchal, Telangana. Offering luxury stays, private pool, and event spaces.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
