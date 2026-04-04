@@ -666,7 +666,12 @@ export default function App() {
                 >
                   <Instagram size={20} />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors">
+                <a 
+                  href="https://www.facebook.com/GangaFarms1/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition-colors"
+                >
                   <Facebook size={20} />
                 </a>
               </div>
