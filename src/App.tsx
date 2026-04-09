@@ -12,7 +12,6 @@ import {
   Star, 
   CheckCircle2, 
   Waves, 
-  Trees, 
   PartyPopper, 
   Utensils, 
   ShieldCheck, 
@@ -31,15 +30,15 @@ const BUSINESS_DETAILS = {
   address: "bus stop, Medchal - Ghanpur - Shamirpet Rd, before, Pudur, Telangana 501401",
   phone: "97050 50403",
   whatsapp: "97050 50403",
-  mapsLink: "https://maps.app.goo.gl/XJHPh1gcqdUJnts88",
-  hours: "Open 24 Hours (Daily)",
+  mapsLink: "https://maps.app.goo.gl/wVvgFDRQaXJ66kDt8",
+  hours: "Every day 10 AM to 2 PM the next day (24 Hours)",
 };
 
 const SERVICES = [
   {
     title: "Stay & Comfort",
     icon: <ShieldCheck className="w-6 h-6" />,
-    items: ["AC Bedrooms", "Furnished Living Hall", "Equipped Kitchen", "Power Backup", "Hot Water"]
+    items: ["3 AC Bedrooms", "2 Furnished Living Hall", "Equipped Kitchen", "Power Backup", "Hot Water"]
   },
   {
     title: "Outdoor & Recreation",
@@ -49,12 +48,12 @@ const SERVICES = [
   {
     title: "Events & Parties",
     icon: <PartyPopper className="w-6 h-6" />,
-    items: ["Weddings", "Corporate Outings", "Birthday Parties", "DJ & Music Systems", "Custom Decoration"]
+    items: ["Weddings", "Corporate Outings", "Birthday Parties", "Projector & Music System", "Custom Decoration"]
   },
   {
     title: "Food & Catering",
     icon: <Utensils className="w-6 h-6" />,
-    items: ["Self-Cooking Allowed", "On-Demand Catering", "Local Vendor Tie-ups", "BBQ Arrangements"]
+    items: ["Self-Cooking Allowed", "Local Vendor Tie-ups", "BBQ Arrangements"]
   }
 ];
 
@@ -79,7 +78,7 @@ const TESTIMONIALS = [
 const FAQ = [
   {
     question: "What are the check-in and check-out times?",
-    answer: "We operate on a 24-hour cycle from 12 PM to 12 PM. However, we are flexible based on availability."
+    answer: "We operate on a 24-hour cycle from 10 AM to 2 PM the next day."
   },
   {
     question: "Is self-cooking allowed?",
@@ -92,19 +91,18 @@ const FAQ = [
 ];
 
 const GALLERY_IMAGES = [
-  "17BnPAseQMSFYpkQvBOSEW6ESY7XbeRnl",
-  "1EZPTuFEdupJpRNTSTZoxjgiQCtMzu6x9",
-  "1F-tPcqnG6D-Ca6CsnJV4e_cAkXuoRDBi",
+  "1-dQRsXANhpctZsCJxF9wHHhPZZAXUHYO",
+  "10fawj45s4uOz60noTrXmWgjsJe8mFf9z",
+  "14GUNcv0Vqs11YzQP5iyG5hmrQmrytB1s",
+  "1COCZWV4j_eZkoe7htXgzy2zVyWoAstlt",
+  "1GPpjcw3H4UWc-roD4EViSro-Odk6Couv",
   "1JfeMJpHlVYIP70aazrOW-J44umFCt4W0",
-  "1MHaEAlk86qB3C0eCE-JU428uJtc1Y1Uv",
-  "1NyI_IEIuBjKn0srY2w9oV5YmSW5kpZ61",
+  "1LsmtE_RKLNhNreC2tjTSHISrzws-9bnZ",
   "1TNjlTKAtOaXTmOz3vLvrjboPPplP7UjB",
-  "1Y-xeITgeWQGprtitxXLoipwjzvVMq_mA",
-  "1b5xH_xDMnBnyYQ99FX_e1IHUljlkqUMz",
-  "1r7fC2iQRRpa4pO6ajDIE-5S2MMlcHvPF",
-  "1sp5Tq_bBca7N6Bgj-UyKxXjBdL1Cn9DF",
-  "1xdL1NsRE9h_oUMft2ILEKF7brAbD8qBp",
-  "1zV978g-Dm3Y7HaQ_BUeVvEQ4h8p_Pcqm"
+  "1YYmnvZKMNNMsFn5XrDUl82Hen4kJyBS1",
+  "1pUC8_5MSOUvCPkKAXYLAqOCdMWLDHO9f",
+  "1qBOJEL3GPYELKSG4-IF5DPxNpAxeI5yy",
+  "1xdL1NsRE9h_oUMft2ILEKF7brAbD8qBp"
 ].map(id => `https://lh3.googleusercontent.com/d/${id}`);
 
 export default function App() {
@@ -120,9 +118,7 @@ export default function App() {
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
@@ -131,9 +127,14 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-lg py-4 shadow-sm' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Trees className="text-secondary w-6 h-6" />
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
+              <img 
+                src="https://lh3.googleusercontent.com/d/1KHT7XowBlOhagsct544606g0g-D01gcr" 
+                alt="Ganga Farms Logo" 
+                className="w-full h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <span className={`text-2xl font-serif font-bold tracking-tight ${scrolled ? 'text-primary' : 'text-white'}`}>
               Ganga Farms
@@ -215,9 +216,9 @@ export default function App() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=2000"
-            alt="Wedding Venue"
-            className="w-full h-full object-cover scale-105 animate-slow-zoom"
+            src="https://lh3.googleusercontent.com/d/1Ha5yGs-UtuBeq9ZUWNYEHD6rxTUSrjix"
+            alt="Ganga Farms Hero"
+            className="w-full h-full object-cover object-center scale-105 animate-slow-zoom"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-primary/80" />
@@ -550,7 +551,7 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-bold text-primary mb-1">Opening Hours</h4>
-                    <p className="text-gray-600">Every day from 12 PM to 12 PM (24 Hours)</p>
+                    <p className="text-gray-600">Every day 10 AM to 2 PM the next day (24 Hours)</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -632,9 +633,14 @@ export default function App() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                  <Trees className="text-white w-6 h-6" />
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://lh3.googleusercontent.com/d/1KHT7XowBlOhagsct544606g0g-D01gcr" 
+                    alt="Ganga Farms Logo" 
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
                 <span className="text-2xl font-serif font-bold tracking-tight">
                   Ganga Farms
