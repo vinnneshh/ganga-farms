@@ -8,6 +8,24 @@
   --color-primary: #1a3a32;
   --color-secondary: #f2e8cf;
   --color-accent: #8b9d77;
+
+  /* Standard hex-based grays to avoid oklch errors in html2canvas */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Standard hex-based colors for UI elements */
+  --color-blue-50: #eff6ff;
+  --color-blue-600: #2563eb;
+  --color-red-50: #fef2f2;
+  --color-red-600: #dc2626;
 }
 
 @layer base {

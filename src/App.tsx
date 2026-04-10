@@ -20,9 +20,11 @@ import {
   X,
   Instagram,
   Facebook,
-  ArrowRight
+  ArrowRight,
+  Lock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import AdminDashboard from './components/AdminDashboard';
 
 const BUSINESS_DETAILS = {
   name: "Ganga Farms",
@@ -109,18 +111,109 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [view, setView] = useState<'home' | 'login' | 'admin'>('home');
+  const [loginForm, setLoginForm] = useState({ username: '', password: '' });
+  const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const token = localStorage.getItem('adminToken');
+    if (token) setView('admin');
   }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginForm)
+      });
+      if (res.ok) {
+        const { token } = await res.json();
+        localStorage.setItem('adminToken', token);
+        setView('admin');
+      } else {
+        setLoginError('Invalid username or password');
+      }
+    } catch (err) {
+      setLoginError('Server error. Please try again.');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setView('home');
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
+
+  if (view === 'admin') {
+    return <AdminDashboard onLogout={handleLogout} />;
+  }
+
+  if (view === 'login') {
+    return (
+      <div className="min-h-screen bg-primary flex items-center justify-center p-6">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-white/20"
+        >
+          <div className="text-center mb-10">
+            <div className="w-20 h-20 bg-primary/5 rounded-3xl flex items-center justify-center mx-auto mb-6">
+              <Lock size={40} className="text-primary" />
+            </div>
+            <h1 className="text-3xl font-serif font-bold text-primary mb-2">Admin Portal</h1>
+            <p className="text-gray-500">Secure access for management</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="block text-sm font-bold text-primary mb-2">Username</label>
+              <input 
+                type="text" 
+                required
+                value={loginForm.username}
+                onChange={(e) => setLoginForm(prev => ({ ...prev, username: e.target.value }))}
+                className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all"
+                placeholder="Enter username"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-primary mb-2">Password</label>
+              <input 
+                type="password" 
+                required
+                value={loginForm.password}
+                onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
+                className="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all"
+                placeholder="••••••••"
+              />
+            </div>
+            {loginError && <p className="text-red-600 text-sm font-medium text-center">{loginError}</p>}
+            <button 
+              type="submit"
+              className="w-full bg-primary text-secondary py-5 rounded-2xl font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl"
+            >
+              Sign In
+            </button>
+            <button 
+              type="button"
+              onClick={() => setView('home')}
+              className="w-full text-gray-500 font-bold hover:text-primary transition-colors"
+            >
+              Back to Website
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen font-sans selection:bg-accent selection:text-white">
@@ -688,6 +781,13 @@ export default function App() {
             <div className="flex gap-8">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <button 
+                onClick={() => setView('login')}
+                className="flex items-center gap-1 hover:text-white transition-colors"
+              >
+                <Lock size={14} />
+                Admin
+              </button>
             </div>
           </div>
         </div>
