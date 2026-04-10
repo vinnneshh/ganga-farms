@@ -32,7 +32,7 @@ const BUSINESS_DETAILS = {
   address: "bus stop, Medchal - Ghanpur - Shamirpet Rd, before, Pudur, Telangana 501401",
   phone: "97050 50403",
   whatsapp: "97050 50403",
-  mapsLink: "https://maps.app.goo.gl/wVvgFDRQaXJ66kDt8",
+  mapsLink: "https://maps.app.goo.gl/XwVq3spkRM8tXJRC9",
   hours: "Every day 10 AM to 2 PM the next day (24 Hours)",
 };
 
