@@ -653,8 +653,9 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-bold text-primary mb-1">Contact</h4>
-                    <p className="text-gray-600">{BUSINESS_DETAILS.phone}</p>
-                    <p className="text-gray-600">WhatsApp: {BUSINESS_DETAILS.whatsapp}</p>
+                    <p className="text-gray-600">{BUSINESS_DETAILS.phone.replace(/\s/g, '').replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5')}</p>
+                    <p className="text-gray-600">WhatsApp:</p>
+                    <p className="text-gray-600">{BUSINESS_DETAILS.whatsapp.replace(/\s/g, '').replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5')}</p>
                   </div>
                 </div>
               </div>
