@@ -35,7 +35,7 @@
 }
 
 .glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+  @apply bg-[#faf9f6] border border-gray-200 shadow-xl;
 }
 
 .gradient-text {

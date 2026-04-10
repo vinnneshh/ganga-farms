@@ -326,20 +326,6 @@ export default function App() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
-            {/* Decorative Elements */}
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl" />
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 -right-8 glass-card p-6 rounded-2xl hidden md:block">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-white">
-                  <Star fill="currentColor" />
-                </div>
-                <div>
-                  <p className="text-primary font-bold text-lg">Top Rated</p>
-                  <p className="text-gray-500 text-sm">Medchal's Favorite</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div className="lg:w-1/2">
@@ -580,13 +566,13 @@ export default function App() {
             <div className="lg:w-1/2">
               <div className="h-[500px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.866504221768!2d78.50476!3d17.6565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb83f000000001%3A0x0!2zMTfCsDM5JzIzLjQiTiA3OMKwMzAnMTcuMSJF!5e0!3m2!1sen!2sin!4v1712214744000!5m2!1sen!2sin"
+                  title="Ganga Farms Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.866504221768!2d78.50476!3d17.656453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb83f000000001%3A0x70551dd6ad3dba15!2sGanga%20Farms!5e0!3m2!1sen!2sin!4v1712750924000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
               <div className="mt-6 text-center">
