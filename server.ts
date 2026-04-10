@@ -9,7 +9,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'ganga-farms-secret-key';
+// Use a consistent secret from environment, or fallback to a hardcoded one if not set (for development)
+const JWT_SECRET = process.env.JWT_SECRET || 'a-very-long-and-secure-random-secret-key-that-should-be-changed-in-production';
 const PORT = 3000;
 
 async function startServer() {

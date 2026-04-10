@@ -223,7 +223,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
               <img 
-                src="https://lh3.googleusercontent.com/d/1KHT7XowBlOhagsct544606g0g-D01gcr" 
+                src="https://lh3.googleusercontent.com/d/1bs7kqsoFMPAM8xYuicupyocOTvKOkLRh" 
                 alt="Ganga Farms Logo" 
                 className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"
@@ -730,7 +730,7 @@ export default function App() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
                   <img 
-                    src="https://lh3.googleusercontent.com/d/1KHT7XowBlOhagsct544606g0g-D01gcr" 
+                    src="https://lh3.googleusercontent.com/d/1bs7kqsoFMPAM8xYuicupyocOTvKOkLRh" 
                     alt="Ganga Farms Logo" 
                     className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
