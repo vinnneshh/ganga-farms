@@ -586,6 +586,30 @@ export default function App() {
                   <ArrowRight size={16} />
                 </a>
               </div>
+
+              {/* Distance Information */}
+              <div className="mt-10 p-8 rounded-3xl bg-white/50 backdrop-blur-sm border border-accent/10 shadow-sm">
+                <h4 className="text-primary font-serif font-bold text-xl mb-6 flex items-center gap-2">
+                  <div className="w-8 h-[1px] bg-accent" />
+                  Distance from City
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                  {[
+                    "Medchal 04km",
+                    "Suchitra / Kompally 18/15km",
+                    "Seunderabad Railway Station 32km",
+                    "Hitech City 38km",
+                    "Banjara hills 39km"
+                  ].map((info, idx) => (
+                    <div key={idx} className="flex items-center gap-3 group">
+                      <span className="text-accent text-lg group-hover:scale-125 transition-transform duration-300">✧</span>
+                      <span className="text-gray-600 font-medium tracking-wide text-sm sm:text-base">
+                        {info}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
