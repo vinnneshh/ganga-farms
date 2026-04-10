@@ -577,7 +577,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 <div className="border-4 border-primary p-8 bg-white" style={{ backgroundColor: 'white' }}>
                   <div className="flex flex-col items-center mb-10">
                     <img 
-                      src="https://lh3.googleusercontent.com/d/1KHT7XowBlOhagsct544606g0g-D01gcr" 
+                      src="https://lh3.googleusercontent.com/d/1bs7kqsoFMPAM8xYuicupyocOTvKOkLRh" 
                       alt="Ganga Farms Logo" 
                       className="h-32 w-auto mb-4 object-contain"
                       referrerPolicy="no-referrer"
