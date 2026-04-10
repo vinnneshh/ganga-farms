@@ -2,15 +2,11 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import db, { initDb } from './db.ts';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Use a consistent secret from environment, or fallback to a hardcoded one if not set (for development)
-const JWT_SECRET = process.env.JWT_SECRET || 'a-very-long-and-secure-random-secret-key-that-should-be-changed-in-production';
 const PORT = 3000;
 
 async function startServer() {
@@ -30,38 +26,8 @@ async function startServer() {
     res.json({ status: 'ok', time: new Date().toISOString() });
   });
 
-  // Auth Middleware
-  const authenticateToken = (req: any, res: any, next: any) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) return res.sendStatus(401);
-
-    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
-      if (err) return res.sendStatus(403);
-      req.user = user;
-      next();
-    });
-  };
-
   // API Routes
-  app.post('/api/login', (req, res) => {
-    const { username, password } = req.body;
-    try {
-      const user: any = db.prepare('SELECT * FROM admins WHERE username = ?').get(username);
-      if (!user) return res.status(401).json({ error: 'Invalid credentials' });
-
-      const validPassword = bcrypt.compareSync(password, user.password);
-      if (!validPassword) return res.status(401).json({ error: 'Invalid credentials' });
-
-      const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '24h' });
-      res.json({ token });
-    } catch (err) {
-      res.status(500).json({ error: 'Database error' });
-    }
-  });
-
-  app.get('/api/bookings', authenticateToken, (req, res) => {
+  app.get('/api/bookings', (req, res) => {
     try {
       const rows = db.prepare('SELECT * FROM bookings ORDER BY id DESC').all();
       res.json(rows);
@@ -70,7 +36,7 @@ async function startServer() {
     }
   });
 
-  app.post('/api/bookings', authenticateToken, (req, res) => {
+  app.post('/api/bookings', (req, res) => {
     const b = req.body;
     const bookingId = b.bookingId || `GF-${Date.now().toString().slice(-6)}`;
     const bookingDate = new Date().toISOString().split('T')[0];
@@ -94,7 +60,7 @@ async function startServer() {
     }
   });
 
-  app.put('/api/bookings/:id', authenticateToken, (req, res) => {
+  app.put('/api/bookings/:id', (req, res) => {
     const b = req.body;
     try {
       const sql = `UPDATE bookings SET 
@@ -117,7 +83,7 @@ async function startServer() {
     }
   });
 
-  app.delete('/api/bookings/:id', authenticateToken, (req, res) => {
+  app.delete('/api/bookings/:id', (req, res) => {
     try {
       const info = db.prepare('DELETE FROM bookings WHERE id = ?').run(req.params.id);
       if (info.changes === 0) {
