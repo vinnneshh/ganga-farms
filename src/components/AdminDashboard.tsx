@@ -84,6 +84,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{ isOpen: boolean, bookingId: number | null }>({ isOpen: false, bookingId: null });
   const [editingBooking, setEditingBooking] = useState<Booking | null>(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [loading, setLoading] = useState(true);
@@ -154,21 +155,36 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    console.log('Deleting booking with ID:', id);
-    if (!confirm('Are you sure you want to delete this booking?')) return;
+  const handleDelete = (id: number) => {
+    setDeleteConfirmation({ isOpen: true, bookingId: id });
+  };
+
+  const confirmDelete = async () => {
+    const id = deleteConfirmation.bookingId;
+    if (!id) return;
+    setDeleteConfirmation({ isOpen: false, bookingId: null });
+    
     try {
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        alert('You are not logged in. Please log in again.');
+        return;
+      }
+
       const res = await fetch(`/api/bookings/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
+
       if (res.ok) {
         setPreviewBooking(null);
         await fetchBookings();
         alert('Booking deleted successfully');
+      } else if (res.status === 401 || res.status === 403) {
+        alert('Your session has expired. Please log in again.');
       } else {
-        const errData = await res.json();
-        alert(`Delete failed: ${errData.error || 'Unknown error'}`);
+        const errData = await res.json().catch(() => ({}));
+        alert(`Delete failed: ${errData.error || 'Unknown error (Status: ' + res.status + ')'}`);
       }
     } catch (err) {
       console.error('Delete error:', err);
@@ -539,7 +555,10 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 <h2 className="text-2xl font-serif font-bold text-primary">Invoice Preview</h2>
                 <div className="flex gap-4">
                   <button 
-                    onClick={() => handleDelete(previewBooking.id)}
+                    onClick={() => {
+                      console.log('Delete button clicked for booking ID:', previewBooking.id);
+                      handleDelete(previewBooking.id);
+                    }}
                     className="bg-red-50 text-red-600 px-4 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-red-100 transition-all"
                   >
                     <Trash2 size={18} /> Delete
@@ -735,6 +754,42 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Confirmation Modal */}
+      <AnimatePresence>
+        {deleteConfirmation.isOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl"
+            >
+              <h3 className="text-xl font-bold text-primary mb-4">Confirm Deletion</h3>
+              <p className="text-gray-600 mb-8">Are you sure you want to delete this booking entirely? This action cannot be undone.</p>
+              <div className="flex gap-4">
+                <button 
+                  onClick={() => setDeleteConfirmation({ isOpen: false, bookingId: null })}
+                  className="flex-1 px-4 py-3 rounded-xl font-bold text-gray-600 hover:bg-gray-100"
+                >
+                  No
+                </button>
+                <button 
+                  onClick={confirmDelete}
+                  className="flex-1 px-4 py-3 rounded-xl font-bold bg-red-600 text-white hover:bg-red-700"
+                >
+                  Yes
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

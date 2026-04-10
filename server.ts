@@ -119,8 +119,12 @@ async function startServer() {
   app.delete('/api/bookings/:id', authenticateToken, (req, res) => {
     try {
       const info = db.prepare('DELETE FROM bookings WHERE id = ?').run(req.params.id);
+      if (info.changes === 0) {
+        return res.status(404).json({ error: 'Booking not found' });
+      }
       res.json({ deleted: info.changes });
     } catch (err: any) {
+      console.error('Delete error:', err);
       res.status(500).json({ error: err.message });
     }
   });

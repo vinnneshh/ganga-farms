@@ -44,13 +44,13 @@ export const initDb = () => {
 
   // Create default admin if not exists
   const defaultUser = 'admin';
-  const defaultPass = 'admin123';
+  const defaultPass = 'ganga@admin';
   
   const row = db.prepare('SELECT * FROM admins WHERE username = ?').get(defaultUser);
   if (!row) {
     const hashedPassword = bcrypt.hashSync(defaultPass, 10);
     db.prepare('INSERT INTO admins (username, password) VALUES (?, ?)').run(defaultUser, hashedPassword);
-    console.log('Default admin created: admin / admin123');
+    console.log('Default admin created: admin / ganga@admin');
   }
 };
 
